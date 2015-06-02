@@ -1,4 +1,4 @@
-package io.codearte.p2yaml;
+package io.codearte.props2yaml;
 
 import java.util.Arrays;
 import java.util.Collections;

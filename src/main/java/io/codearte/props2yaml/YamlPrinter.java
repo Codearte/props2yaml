@@ -1,4 +1,4 @@
-package io.codearte.p2yaml;
+package io.codearte.props2yaml;
 
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
