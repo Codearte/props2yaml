@@ -10,15 +10,16 @@ public class KeyTreeBuilder {
 
     private final String key;
     private final Object value;
+    private final TreeMap<String, Object> rootTree;
 
-    public KeyTreeBuilder(String key, Object value) {
+    public KeyTreeBuilder(TreeMap<String, Object> rootTree, String key, Object value) {
+        this.rootTree = rootTree;
         this.key = key;
         this.value = value;
     }
 
     public TreeMap<String, Object> build() {
         List<String> strings = splitKey(key);
-        TreeMap<String, Object> rootTree = new TreeMap<>();
         TreeMap<String, Object> leafTree = strings.stream()
                 .reduce(new TreeMap<>(),
                         (a, b) -> {

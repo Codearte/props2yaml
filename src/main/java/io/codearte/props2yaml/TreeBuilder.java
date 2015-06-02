@@ -21,6 +21,6 @@ public class TreeBuilder {
 
     private void breakProperty(TreeMap<String, Object> rootTree, String propertyName) {
         final String value = properties.getProperty(propertyName);
-        rootTree.putAll(new KeyTreeBuilder(propertyName, ValueConverter.asObject(value)).build());
+        new KeyTreeBuilder(rootTree, propertyName, ValueConverter.asObject(value)).build();
     }
 }
