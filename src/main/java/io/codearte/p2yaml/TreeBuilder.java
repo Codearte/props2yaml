@@ -38,7 +38,7 @@ public class TreeBuilder {
                             if (!a.isEmpty()) {
                                 m.put(b, a);
                             } else {
-                                m.put(b, asObject(value));
+                                m.put(b, ValueConverter.asObject(value));
                             }
                             return m;
                         },
@@ -50,31 +50,7 @@ public class TreeBuilder {
         createLeaf(rootTree, leafTree);
     }
 
-    private Object asObject(String string) {
-        if (string.equalsIgnoreCase("true") || string.equalsIgnoreCase("false")) {
-            return Boolean.valueOf(string);
-            // do something
-        } else {
 
-            try {
-                return Integer.parseInt(string);
-            } catch (NumberFormatException e) {
-
-            }
-            try {
-                return Long.parseLong(string);
-            } catch (NumberFormatException e) {
-
-            }
-            try {
-                return Double.parseDouble(string);
-            } catch (NumberFormatException e) {
-
-            }
-
-            return string;
-        }
-    }
 
     private void createLeaf(TreeMap<String, Object> rootTree, TreeMap<String, Object> leafTree) {
         for (Map.Entry<String, Object> reducedEntries : leafTree.entrySet()) {
