@@ -7,25 +7,23 @@ import java.util.TreeMap;
 
 public class Props2YAML {
 
-    private final Properties properties;
+    private final Properties properties = new Properties();
 
     public Props2YAML(String source) {
-        properties = createProperties(source);
+        fillProperties(source);
     }
 
     public String convert() throws IOException {
-        TreeMap<String, Object> mainMap = new TreeBuilder(properties).build();
-        return new YamlPrinter(mainMap).invoke();
+        TreeMap<String, Object> tree = new TreeBuilder(properties).build();
+        return new YamlPrinter(tree).invoke();
     }
 
-    private Properties createProperties(String source) {
-        Properties properties = new Properties();
+    private void fillProperties(String source) {
         try {
             properties.load(new StringReader(source));
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return properties;
     }
 
 }

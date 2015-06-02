@@ -14,7 +14,7 @@ class YamlPrinter {
 
     public String invoke() {
         Yaml yaml = new Yaml(dumperOptions());
-        return  yaml.dump(mainMap);
+        return yaml.dump(mainMap);
     }
 
     private DumperOptions dumperOptions() {

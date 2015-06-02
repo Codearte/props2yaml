@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class KeyTreeBuilder {
+class KeyTreeBuilder {
 
     private final String key;
     private final Object value;

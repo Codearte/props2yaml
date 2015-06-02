@@ -10,9 +10,11 @@ class PropertiesFromWikipediaSpec extends Specification {
         when:
             String yaml = new Props2YAML(props).convert();
         then:
-            yaml =~ 'key with spaces: This is the value that could be looked up with the key "key with spaces".'
-            yaml =~ 'message: Welcome to Wikipedia!'
-            yaml =~ 'tab: "\\\\t"'
             yaml =~ 'website: http://en.wikipedia.org/'
+            yaml =~ 'language: English'
+            yaml =~ 'message: Welcome to Wikipedia!'
+            yaml =~ 'key with spaces: This is the value that could be looked up with the key "key with spaces".'
+            yaml =~ 'tab: "\\\\t"'
+            yaml !=~ 'exclamation'
     }
 }

@@ -1,6 +1,6 @@
 package io.codearte.props2yaml;
 
-public class ValueConverter {
+class ValueConverter {
 
     public static Object asObject(String string) {
         if (string.equalsIgnoreCase("true") || string.equalsIgnoreCase("false")) {

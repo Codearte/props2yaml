@@ -3,12 +3,12 @@ package io.codearte.props2yaml;
 import java.util.Properties;
 import java.util.TreeMap;
 
-public class TreeBuilder {
+class TreeBuilder {
 
     private final Properties properties;
 
-    public TreeBuilder(Properties props) {
-        this.properties = props;
+    public TreeBuilder(Properties properties) {
+        this.properties = properties;
     }
 
     public TreeMap<String, Object> build() {
