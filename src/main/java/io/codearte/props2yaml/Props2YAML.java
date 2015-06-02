@@ -5,15 +5,15 @@ import java.io.StringReader;
 import java.util.Properties;
 import java.util.TreeMap;
 
-public class P2YAML {
+public class Props2YAML {
 
     private final Properties properties;
 
-    public P2YAML(String source) {
+    public Props2YAML(String source) {
         properties = createProperties(source);
     }
 
-    public String toYAML() throws IOException {
+    public String convert() throws IOException {
         TreeMap<String, Object> mainMap = new TreeBuilder(properties).build();
         return new YamlPrinter(mainMap).invoke();
     }
