@@ -13,7 +13,7 @@ public class Props2YAML {
         fillProperties(source);
     }
 
-    public String convert() throws IOException {
+    public String convert() {
         TreeMap<String, Object> tree = new TreeBuilder(properties).build();
         return new YamlPrinter(tree).invoke();
     }
