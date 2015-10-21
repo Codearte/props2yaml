@@ -5,27 +5,19 @@ import spock.lang.Specification
 class ArrayConverterSpec extends Specification {
 
     def "Should convert very simple case"() {
-        given:
-            String props = 'foo[0]=true'
         when:
-            String yaml = new Props2YAML(props).convert();
-
-            println "---"
-            println yaml
+            String yaml = new Props2YAML('foo[0]=true').convert();
         then:
-            yaml == '''foo:
-- true
-'''
+            yaml =~ 'foo:'
+            yaml =~ '- true'
     }
 
     def "Should convert sample example with array"() {
-        given:
-            String props = 'foo[0].skip=true'
         when:
-            String yaml = new Props2YAML(props).convert();
-            println yaml
+            String yaml = new Props2YAML('foo[0].skip=true').convert();
         then:
-            yaml == 'foo:\n-   skip: true\n'
+            yaml =~ 'foo:'
+            yaml =~ '-   skip: true'
     }
 
     def "Should convert example 2 with array"() {
@@ -33,26 +25,20 @@ class ArrayConverterSpec extends Specification {
             String props = 'foo.bar[0].a=true'
         when:
             String yaml = new Props2YAML(props).convert();
-            println yaml
         then:
-            yaml == '''foo:
-    bar:
-    -   a: true
-'''
+            yaml =~ 'foo:'
+            yaml =~ '    bar:'
+            yaml =~ '    -   a: true'
     }
 
     def "Should convert example 3 with array"() {
-        given:
-            String props = 'foo[0]=true\n' +
-                    'foo[1]=false'
         when:
-            String yaml = new Props2YAML(props).convert();
-            println yaml
+            String yaml = new Props2YAML('''foo[0]=true
+                                            foo[1]=false''').convert();
         then:
-            yaml == '''foo:
-- true
-- false
-'''
+            yaml =~ 'foo:'
+            yaml =~ '- true'
+            yaml =~ '- false'
     }
 
     def "Should convert example 4 with array"() {
@@ -61,44 +47,33 @@ class ArrayConverterSpec extends Specification {
                     'foo[1].bar=false'
         when:
             String yaml = new Props2YAML(props).convert();
-            println '-----'
-            println yaml
         then:
-            yaml == '''foo:
--   bar: true
--   bar: false
-'''
+            yaml =~ 'foo:'
+            yaml =~ '-   bar: true'
+            yaml =~ '-   bar: false'
     }
 
     def "Should convert example 5 with array"() {
-        given:
-            String props = 'foo[0].first=true\n' +
-                    'foo[0].second=false'
         when:
-            String yaml = new Props2YAML(props).convert();
-            println yaml
+            String yaml = new Props2YAML('''foo[0].first=true
+                                            foo[0].second=false''').convert();
         then:
-            yaml == '''foo:
--   first: true
-    second: false
-'''
+            yaml =~ 'foo:'
+            yaml =~ '-   first: true'
+            yaml =~ '    second: false'
     }
 
-    def "Should convert example 6 with 2-dim array"() {
-        given:
-            String props = '''foo[0].a[0].first=true
-                    foo[0].a[1].first=false
-                    foo[0].a[1].second=false'''
+    def "Should convert example 2-dim array"() {
         when:
-            String yaml = new Props2YAML(props).convert();
-            println yaml
+            String yaml = new Props2YAML('''foo[0].a[0].first=true
+                                            foo[0].a[1].first=false
+                                            foo[0].a[1].second=false''').convert();
         then:
-            yaml == '''foo:
--   a:
-    -   first: true
-    -   first: false
-        second: false
-'''
+            yaml =~ 'foo:'
+            yaml =~ '-   a:'
+            yaml =~ '    -   first: true'
+            yaml =~ '    -   first: false'
+            yaml =~ '        second: false'
     }
 
 }
