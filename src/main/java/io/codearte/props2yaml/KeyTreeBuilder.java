@@ -54,11 +54,10 @@ class KeyTreeBuilder {
             if (result == null) {
                 rootTree.put(reducedEntries.getKey(), reducedEntries.getValue());
             } else {
-                Object o = rootTree.get(reducedEntries.getKey());
-                if (o instanceof TreeMap && result instanceof TreeMap) {
-                    createLeaf((TreeMap) o, (TreeMap) reducedEntries.getValue());
+                if (result instanceof TreeMap) {
+                    createLeaf((TreeMap) result, (TreeMap<String, Object>) reducedEntries.getValue());
                 } else {
-                    throw new IllegalArgumentException("D");
+                    throw new IllegalArgumentException(String.format("Failed for element %s in %s", reducedEntries.getValue(), reducedEntries.getKey()));
                 }
             }
         }

@@ -6,7 +6,6 @@ class ValueConverter {
         if (string.equalsIgnoreCase("true") || string.equalsIgnoreCase("false")) {
             return Boolean.valueOf(string);
         } else {
-
             try {
                 return Integer.parseInt(string);
             } catch (NumberFormatException e) {

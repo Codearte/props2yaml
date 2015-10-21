@@ -17,4 +17,15 @@ class PropertiesFromWikipediaSpec extends Specification {
             yaml =~ 'tab: "\\\\t"'
             yaml !=~ 'exclamation'
     }
+    def "Should read s sample properties"() {
+        given:
+            String props = new File('src/test/resources/maciek.properties').text
+        when:
+            String yaml = new Props2YAML(props).convert();
+        println yaml
+        then:
+            yaml =~ '    -   filteredReqFields\\[m\\]: acceptNews'
+            yaml =~ '        filteredReqHeaders\\[j\\]: header-req-to-remove-1'
+            yaml =~ '    config\\[z\\]:'
+    }
 }

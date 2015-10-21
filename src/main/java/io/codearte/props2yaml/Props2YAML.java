@@ -15,6 +15,7 @@ public class Props2YAML {
 
     public String convert() {
         TreeMap<String, Object> tree = new TreeBuilder(properties).build();
+        tree = new ArrayProcessor(tree).build();
         return new YamlPrinter(tree).invoke();
     }
 
