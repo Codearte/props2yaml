@@ -84,4 +84,21 @@ class ArrayConverterSpec extends Specification {
 '''
     }
 
+    def "Should convert example 6 with 2-dim array"() {
+        given:
+            String props = '''foo[0].a[0].first=true
+                    foo[0].a[1].first=false
+                    foo[0].a[1].second=false'''
+        when:
+            String yaml = new Props2YAML(props).convert();
+            println yaml
+        then:
+            yaml == '''foo:
+-   a:
+    -   first: true
+    -   first: false
+        second: false
+'''
+    }
+
 }

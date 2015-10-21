@@ -17,7 +17,8 @@ class PropertiesFromWikipediaSpec extends Specification {
             yaml =~ 'tab: "\\\\t"'
             yaml !=~ 'exclamation'
     }
-    def "Should read s sample properties"() {
+
+    def "Should read maciek sample properties"() {
         given:
             String props = new File('src/test/resources/maciek.properties').text
         when:

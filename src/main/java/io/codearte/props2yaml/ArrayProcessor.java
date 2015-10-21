@@ -38,7 +38,11 @@ public class ArrayProcessor {
                 } else {
                     ArrayList<Object> objects = new ArrayList<>(1000);
                     adjustArray(index, objects);
-                    objects.add(index, entry.getValue());
+                    if(entry.getValue() instanceof TreeMap){
+                        objects.add(index, scan((TreeMap) entry.getValue()));
+                    } else {
+                        objects.add(index, entry.getValue());
+                    }
                     entriesFromList.put(label, objects);
                 }
             } else {
