@@ -19,42 +19,35 @@ public class ArrayProcessor {
     }
 
     public TreeMap<String, Object> build() {
-        return scan(tree);
+        return process(tree);
     }
 
-    private TreeMap<String, Object> scan(final TreeMap<String, Object> result) {
-        TreeMap<String, Object> output = new TreeMap<>();
-        Map<String, List> entriesFromList = new HashMap<>();
-        for (Map.Entry<String, Object> entry : result.entrySet()) {
-            String key = entry.getKey();
-            Matcher matcher = pattern.matcher(key);
+    private TreeMap<String, Object> process(final TreeMap<String, Object> result) {
+        final TreeMap<String, Object> output = new TreeMap<>();
+        final Map<String, List> entriesFromList = new HashMap<>();
+        result.entrySet().stream().forEach((entry) -> {
+            Matcher matcher = pattern.matcher(entry.getKey());
             if (matcher.find()) {
                 String label = matcher.group(1);
                 int index = Integer.parseInt(matcher.group(2));
-                List<Object> elementList = entriesFromList.get(label);
-                if (elementList != null) {
-                    adjustArray(index, elementList);
-                    elementList.add(index, entry.getValue());
-                } else {
-                    ArrayList<Object> objects = new ArrayList<>(1000);
-                    adjustArray(index, objects);
-                    if(entry.getValue() instanceof TreeMap){
-                        objects.add(index, scan((TreeMap) entry.getValue()));
-                    } else {
-                        objects.add(index, entry.getValue());
-                    }
-                    entriesFromList.put(label, objects);
-                }
+                entriesFromList.put(label, processListElement(entriesFromList.get(label), entry.getValue(), index));
             } else {
-                if (entry.getValue() instanceof TreeMap) {
-                    output.put(entry.getKey(), scan((TreeMap) entry.getValue()));
-                } else {
-                    output.put(entry.getKey(), entry.getValue());
-                }
+                output.put(entry.getKey(), getValue(entry.getValue()));
             }
-        }
+        });
         output.putAll(entriesFromList);
         return output;
+    }
+
+    private List processListElement(List<Object> elements, Object value, int index) {
+        ArrayList<Object> result = elements == null ? new ArrayList<>() : new ArrayList<>(elements);
+        adjustArray(index, result);
+        result.add(index, getValue(value));
+        return result;
+    }
+
+    private Object getValue(Object value) {
+        return value instanceof TreeMap ? process((TreeMap) value) : value;
     }
 
     private void adjustArray(int index, List<Object> elementList) {
