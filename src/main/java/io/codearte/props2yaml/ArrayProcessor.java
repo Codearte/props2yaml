@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class ArrayProcessor {
 
-    private final Pattern pattern = Pattern.compile("(.*)\\[(\\d)\\]");
+    private final Pattern pattern = Pattern.compile("(.*)\\[(\\d+)\\]");
 
     private TreeMap<String, Object> tree;
 
@@ -39,18 +39,18 @@ public class ArrayProcessor {
         return output;
     }
 
-    private List processListElement(List<Object> elements, Object value, int index) {
+    private List processListElement(final List<Object> elements, final Object value, final int index) {
         ArrayList<Object> result = elements == null ? new ArrayList<>() : new ArrayList<>(elements);
         adjustArray(index, result);
         result.add(index, getValue(value));
         return result;
     }
 
-    private Object getValue(Object value) {
+    private Object getValue(final Object value) {
         return value instanceof TreeMap ? process((TreeMap) value) : value;
     }
 
-    private void adjustArray(int index, List<Object> elementList) {
+    private void adjustArray(final int index, List<Object> elementList) {
         if (elementList.size() < index) {
             for (int i = elementList.size(); i < index; i++) {
                 elementList.add(i, null);

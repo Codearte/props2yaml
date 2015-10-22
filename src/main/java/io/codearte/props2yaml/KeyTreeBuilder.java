@@ -3,7 +3,6 @@ package io.codearte.props2yaml;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.TreeMap;
 
 class KeyTreeBuilder {
@@ -41,25 +40,23 @@ class KeyTreeBuilder {
         return rootTree;
     }
 
+    private void createLeaf(TreeMap<String, Object> rootTree, TreeMap<String, Object> leafTree) {
+        leafTree.entrySet().stream().forEach(entry -> {
+            Object result = rootTree.get(entry.getKey());
+            if (result == null) {
+                rootTree.put(entry.getKey(), entry.getValue());
+            } else if (result instanceof TreeMap) {
+                createLeaf((TreeMap) result, (TreeMap<String, Object>) entry.getValue());
+            } else {
+                throw new IllegalArgumentException(String.format("Failed for element %s in %s", entry.getValue(), entry.getKey()));
+            }
+        });
+    }
+
     private List<String> splitKey(String key) {
         String[] split = key.split("\\.");
         List<String> strings = Arrays.asList(split);
         Collections.reverse(strings);
         return strings;
-    }
-
-    private void createLeaf(TreeMap<String, Object> rootTree, TreeMap<String, Object> leafTree) {
-        for (Map.Entry<String, Object> reducedEntries : leafTree.entrySet()) {
-            Object result = rootTree.get(reducedEntries.getKey());
-            if (result == null) {
-                rootTree.put(reducedEntries.getKey(), reducedEntries.getValue());
-            } else {
-                if (result instanceof TreeMap) {
-                    createLeaf((TreeMap) result, (TreeMap<String, Object>) reducedEntries.getValue());
-                } else {
-                    throw new IllegalArgumentException(String.format("Failed for element %s in %s", reducedEntries.getValue(), reducedEntries.getKey()));
-                }
-            }
-        }
     }
 }
