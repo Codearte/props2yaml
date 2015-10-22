@@ -4,7 +4,7 @@
 
     <groupId>io.codearte.props2yaml</groupId>
     <artifactId>props2yaml</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
 
     <name>props2yaml</name>
     <description>Properties to YAML converter library</description>
@@ -104,7 +104,7 @@
         <connection>scm:git:https://github.com/Codearte/props2yaml.git</connection>
         <developerConnection>scm:git:git@github.com:Codearte/props2yaml.git</developerConnection>
         <url>https://github.com/Codearte/props2yaml/</url>
-        <tag>HEAD</tag>
+        <tag>props2yaml-0.1</tag>
     </scm>
 
     <distributionManagement>
