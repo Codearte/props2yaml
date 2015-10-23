@@ -31,10 +31,8 @@ class KeyTreeBuilder {
                             return m;
                         },
                         (a, b) -> {
-                            if (!b.isEmpty()) {
-                                a.put(b.firstKey(), b);
-                            }
-                            return a;
+                            // parallel processing is not supported here
+                            throw new IllegalStateException("Illegal operation");
                         });
         createLeaf(rootTree, leafTree);
         return rootTree;
