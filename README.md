@@ -1,11 +1,10 @@
 Properties to YAML Converter
 ===
 
-Usage:
+Library usage:
 
     String yaml = new Props2YAML(string).convert();
 
 or from command line:
 
-    $ cd scripts
-    $ ./props2yaml.sh fileName
+    $ mvn io.codearte.prop2yaml:props2yaml-maven-plugin:convert -Dproperties=application.properties
