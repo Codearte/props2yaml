@@ -1,6 +1,6 @@
 Properties to YAML Converter 
 ===
-[![Build Status](https://travis-ci.org/Codearte/props2yaml.svg)](https://travis-ci.org/Codearte/props2yaml) [![Coverage Status](https://coveralls.io/repos/Codearte/props2yaml/badge.svg?branch=master&service=github)](https://coveralls.io/github/Codearte/props2yaml?branch=master)
+[![Build Status](https://travis-ci.org/Codearte/props2yaml.svg)](https://travis-ci.org/Codearte/props2yaml) [![Coverage Status](https://coveralls.io/repos/Codearte/props2yaml/badge.svg?branch=master&service=github)](https://coveralls.io/github/Codearte/props2yaml?branch=master) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.codearte.props2yaml/props2yaml/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.codearte.props2yaml/props2yaml)
 
 Library usage:
 
