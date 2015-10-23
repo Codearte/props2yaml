@@ -22,7 +22,7 @@
         <dependency>
             <groupId>io.codearte.props2yaml</groupId>
             <artifactId>props2yaml</artifactId>
-            <version>0.1</version>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>
@@ -42,7 +42,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.11</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -77,11 +77,6 @@
             <plugin>
                 <groupId>io.takari.maven.plugins</groupId>
                 <artifactId>takari-lifecycle-plugin</artifactId>
-                <version>${takariLifecycleVersion}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <proc>none</proc>
-                </configuration>
             </plugin>
 
             <plugin>
@@ -99,7 +94,5 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
-
 </project>
