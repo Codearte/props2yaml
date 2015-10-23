@@ -12,5 +12,5 @@ or from command line:
 
 or
 
-    $ wget http://central.maven.org/maven2/io/codearte/props2yaml/props2yaml/0.2/props2yaml-0.2-jar-with-dependencies.jar
-    $ java -jar props2yaml-0.2-jar-with-dependencies.jar -Dproperties=application.properties
+    $ wget http://central.maven.org/maven2/io/codearte/props2yaml/props2yaml/0.3/props2yaml-0.3-jar-with-dependencies.jar
+    $ java -jar props2yaml-0.3-jar-with-dependencies.jar -Dproperties=application.properties
