@@ -3,16 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.codearte.prop2yaml</groupId>
+    <groupId>io.codearte.props2yaml</groupId>
     <artifactId>sample-project</artifactId>
     <version>0.1</version>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>io.codearte.prop2yaml</groupId>
+                <groupId>io.codearte.props2yaml</groupId>
                 <artifactId>props2yaml-maven-plugin</artifactId>
-                <version>0.2-SNAPSHOT</version>
+                <version>0.3-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>convert</id>

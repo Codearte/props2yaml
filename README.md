@@ -7,4 +7,4 @@ Library usage:
 
 or from command line:
 
-    $ mvn io.codearte.prop2yaml:props2yaml-maven-plugin:convert -Dproperties=application.properties
+    $ mvn io.codearte.props2yaml:props2yaml-maven-plugin:convert -Dproperties=application.properties
