@@ -4,27 +4,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class ArrayProcessor {
+class ArrayProcessor {
 
     private final Pattern pattern = Pattern.compile("(.*)\\[(\\d+)\\]");
 
-    private TreeMap<String, Object> tree;
+    private final Tree tree;
 
-    public ArrayProcessor(TreeMap<String, Object> tree) {
+    public ArrayProcessor(Tree tree) {
         this.tree = tree;
     }
 
-    public TreeMap<String, Object> build() {
+    public Tree build() {
         return process(tree);
     }
 
-    private TreeMap<String, Object> process(final TreeMap<String, Object> result) {
-        final TreeMap<String, Object> output = new TreeMap<>();
-        final Map<String, List> entriesFromList = new HashMap<>();
+    private Tree process(final Tree result) {
+        final Tree output = new Tree();
+        final Map<String, List<Object>> entriesFromList = new HashMap<>();
         result.entrySet().stream().forEach((entry) -> {
             Matcher matcher = pattern.matcher(entry.getKey());
             if (matcher.find()) {
@@ -39,15 +38,15 @@ public class ArrayProcessor {
         return output;
     }
 
-    private List processListElement(final List<Object> elements, final Object value, final int index) {
-        ArrayList<Object> result = elements == null ? new ArrayList<>() : new ArrayList<>(elements);
+    private List<Object> processListElement(final List<Object> elements, final Object value, final int index) {
+        List<Object> result = elements == null ? new ArrayList<>() : new ArrayList<>(elements);
         adjustArray(index, result);
         result.add(index, getValue(value));
         return result;
     }
 
     private Object getValue(final Object value) {
-        return value instanceof TreeMap ? process((TreeMap) value) : value;
+        return value instanceof Tree ? process((Tree) value) : value;
     }
 
     private void adjustArray(final int index, List<Object> elementList) {

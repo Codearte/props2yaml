@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class Props2YamlConverter {
+class Props2YamlConverter {
 
     private Props2YamlConverter() {
     }

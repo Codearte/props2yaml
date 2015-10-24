@@ -3,12 +3,13 @@ package io.codearte.props2yaml;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 
-import java.util.TreeMap;
+import java.util.Map;
 
 class YamlPrinter {
-    private TreeMap<String, Object> mainMap;
 
-    public YamlPrinter(TreeMap<String, Object> mainMap) {
+    private final Map<String, Object> mainMap;
+
+    public YamlPrinter(Tree mainMap) {
         this.mainMap = mainMap;
     }
 

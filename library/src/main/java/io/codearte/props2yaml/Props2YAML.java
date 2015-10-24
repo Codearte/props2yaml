@@ -3,7 +3,6 @@ package io.codearte.props2yaml;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Properties;
-import java.util.TreeMap;
 
 public class Props2YAML {
 
@@ -14,7 +13,7 @@ public class Props2YAML {
     }
 
     public String convert() {
-        TreeMap<String, Object> tree = new TreeBuilder(properties).build();
+        Tree tree = new TreeBuilder(properties).build();
         tree = new ArrayProcessor(tree).build();
         return new YamlPrinter(tree).invoke();
     }

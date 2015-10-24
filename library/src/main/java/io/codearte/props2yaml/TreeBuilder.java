@@ -1,7 +1,11 @@
 package io.codearte.props2yaml;
 
 import java.util.Properties;
-import java.util.TreeMap;
+import java.util.function.Function;
+
+import static io.codearte.props2yaml.AppendBranch.appendBranch;
+import static io.codearte.props2yaml.ValueConverter.asObject;
+import static java.util.stream.Collectors.toMap;
 
 class TreeBuilder {
 
@@ -11,16 +15,16 @@ class TreeBuilder {
         this.properties = properties;
     }
 
-    public TreeMap<String, Object> build() {
-        TreeMap<String, Object> rootTree = new TreeMap<>();
-        properties.stringPropertyNames().forEach(
-                propertyName -> breakProperty(rootTree, propertyName)
-        );
-        return rootTree;
-    }
-
-    private void breakProperty(TreeMap<String, Object> rootTree, String propertyName) {
-        final String value = properties.getProperty(propertyName);
-        new KeyTreeBuilder(rootTree, propertyName, ValueConverter.asObject(value)).build();
+    public Tree build() {
+        Tree root = new Tree();
+        properties.stringPropertyNames().stream()
+                .collect(toMap(
+                        Function.<String>identity(),
+                        key -> asObject(properties.getProperty(key))))
+                .forEach((String key, Object value) -> {
+                            appendBranch(root, new TreeBranchBuilder(key, value).build());
+                        }
+                );
+        return root;
     }
 }

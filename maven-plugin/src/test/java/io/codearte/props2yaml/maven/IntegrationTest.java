@@ -18,7 +18,7 @@ public class IntegrationTest {
     @Rule
     public final TestResources resources = new TestResources();
 
-    public final MavenRuntime maven;
+    private final MavenRuntime maven;
 
     public IntegrationTest(MavenRuntimeBuilder builder) throws Exception {
         this.maven = builder.build();
