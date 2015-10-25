@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class TreeBranchBuilder {
+class TreeBranchBuilder {
 
     private final String key;
     private final Object value;
