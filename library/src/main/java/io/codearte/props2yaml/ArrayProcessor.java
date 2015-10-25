@@ -17,25 +17,25 @@ class ArrayProcessor {
         this.tree = tree;
     }
 
-    public Tree build() {
+    public Tree apply() {
         return process(tree);
     }
 
-    private Tree process(final Tree result) {
-        final Tree output = new Tree();
+    private Tree process(final Tree root) {
+        final Tree result = new Tree();
         final Map<String, List<Object>> entriesFromList = new HashMap<>();
-        result.entrySet().stream().forEach((entry) -> {
+        root.entrySet().stream().forEach((entry) -> {
             Matcher matcher = pattern.matcher(entry.getKey());
             if (matcher.find()) {
                 String label = matcher.group(1);
                 int index = Integer.parseInt(matcher.group(2));
                 entriesFromList.put(label, processListElement(entriesFromList.get(label), entry.getValue(), index));
             } else {
-                output.put(entry.getKey(), getValue(entry.getValue()));
+                result.put(entry.getKey(), getValue(entry.getValue()));
             }
         });
-        output.putAll(entriesFromList);
-        return output;
+        result.putAll(entriesFromList);
+        return result;
     }
 
     private List<Object> processListElement(final List<Object> elements, final Object value, final int index) {

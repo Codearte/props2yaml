@@ -1,7 +1,9 @@
 package io.codearte.props2yaml;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Properties;
-import java.util.function.Function;
 
 import static io.codearte.props2yaml.ValueConverter.asObject;
 import static java.util.stream.Collectors.toMap;
@@ -18,9 +20,15 @@ class TreeBuilder {
         Tree root = new Tree();
         properties.stringPropertyNames().stream()
                 .collect(toMap(
-                        Function.<String>identity(),
-                        key -> asObject(properties.getProperty(key))))
-                .forEach(root::appendBranchCreatedFromKeyValue);
+                        this::splitPropertyName,
+                        propertyName -> asObject(properties.getProperty(propertyName))))
+                .forEach(root::appendBranchFromKeyValue);
         return root;
+    }
+
+    private List<String> splitPropertyName(String property) {
+        List<String> strings = Arrays.asList(property.split("\\."));
+        Collections.reverse(strings);
+        return strings;
     }
 }

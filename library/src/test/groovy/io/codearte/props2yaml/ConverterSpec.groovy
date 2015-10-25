@@ -13,4 +13,23 @@ class ConverterSpec extends Specification {
             yaml =~ 'a: true'
     }
 
+    def "Should read mullti line values"() {
+        given:
+            String props = '''a=line1\
+line2'''
+        when:
+            String yaml = new Props2YAML(props).convert();
+        then:
+            yaml =~ 'a: line1line2'
+    }
+
+    def "Should read array values"() {
+        given:
+            String props = "a: x, y, z"
+        when:
+            String yaml = new Props2YAML(props).convert();
+        then:
+            yaml =~ "a: x, y, z"
+    }
+
 }

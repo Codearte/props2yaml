@@ -6,16 +6,16 @@ import java.util.List;
 
 class TreeBranchBuilder {
 
-    private final String key;
+    private final List<String> key;
     private final Object value;
 
-    public TreeBranchBuilder(String key, Object value) {
+    public TreeBranchBuilder(List<String> key, Object value) {
         this.key = key;
         this.value = value;
     }
 
     public Tree build() {
-        return splitKey(key).stream()
+        return key.stream()
                 .reduce(new Tree(),
                         (a, b) -> new Tree(b, a.isEmpty() ? value : a),
                         (a, b) -> {
@@ -24,10 +24,5 @@ class TreeBranchBuilder {
                 );
     }
 
-    private List<String> splitKey(String key) {
-        String[] split = key.split("\\.");
-        List<String> strings = Arrays.asList(split);
-        Collections.reverse(strings);
-        return strings;
-    }
+
 }
