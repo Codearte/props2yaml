@@ -3,7 +3,11 @@ language: java
 jdk:
   - oraclejdk8
 
+before_script:
+  - pip install --user codecov
+
 script: ./mvnw package 
 
 after_success:
   - ./mvnw clean test jacoco:report coveralls:report
+  - codecov
