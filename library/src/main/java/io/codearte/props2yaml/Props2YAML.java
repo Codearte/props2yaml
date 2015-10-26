@@ -12,20 +12,12 @@ public class Props2YAML {
 
     private final Properties properties = new Properties();
 
-    Props2YAML(String source) {
-        try {
-            properties.load(new StringReader(source));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    Props2YAML(String content) {
+        fillProperties(content);
     }
 
     Props2YAML(File file) {
-        try (InputStream input = new FileInputStream(file)) {
-            properties.load(input);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        fillProperties(file);
     }
 
     public static Props2YAML fromContent(String content) {
@@ -46,9 +38,17 @@ public class Props2YAML {
         return new YamlPrinter(tree).invoke();
     }
 
-    private void fillProperties(String source) {
-        try {
-            properties.load(new StringReader(source));
+    private void fillProperties(String content) {
+        try (StringReader reader = new StringReader(content)) {
+            properties.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void fillProperties(File file) {
+        try (InputStream input = new FileInputStream(file)) {
+            properties.load(input);
         } catch (IOException e) {
             e.printStackTrace();
         }
