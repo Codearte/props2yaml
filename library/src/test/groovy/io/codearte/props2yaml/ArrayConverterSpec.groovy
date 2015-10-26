@@ -6,7 +6,7 @@ class ArrayConverterSpec extends Specification {
 
     def "Should convert very simple case"() {
         when:
-            String yaml = new Props2YAML('foo[0]=true').convert();
+            String yaml = Props2YAML.fromContent('foo[0]=true').convert();
         then:
             yaml =~ 'foo:'
             yaml =~ '- true'

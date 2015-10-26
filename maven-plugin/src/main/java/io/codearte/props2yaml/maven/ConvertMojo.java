@@ -32,7 +32,7 @@ public class ConvertMojo extends AbstractMojo {
         try {
             getLog().info("Properties to convert: " + propertiesPath);
             String content = new String(Files.readAllBytes(propertiesPath));
-            String yaml = new Props2YAML(content).convert();
+            String yaml = Props2YAML.fromContent(content).convert();
             Path destinationPath = propertiesPath.getParent().resolve(getFileName());
             getLog().info("Write YAML to: " + destinationPath);
             try (BufferedWriter writer = Files.newBufferedWriter(destinationPath)) {

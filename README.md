@@ -4,7 +4,9 @@ Properties to YAML Converter
 
 Library usage:
 
-    String yaml = new Props2YAML(string).convert();
+    String yaml = Props2YAML.fromContent(content).convert();
+    String yaml = Props2YAML.fromFile(file).convert();
+    String yaml = Props2YAML.fromFile(path).convert();
 
 or from command line:
 
