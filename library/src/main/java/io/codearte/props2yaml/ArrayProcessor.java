@@ -9,20 +9,20 @@ import java.util.regex.Pattern;
 
 class ArrayProcessor {
 
-    private final Pattern pattern = Pattern.compile("(.*)\\[(\\d+)\\]");
+    private final static Pattern pattern = Pattern.compile("(.*)\\[(\\d+)\\]");
 
-    private final Tree tree;
+    private final PropertyTree tree;
 
-    public ArrayProcessor(Tree tree) {
+    public ArrayProcessor(PropertyTree tree) {
         this.tree = tree;
     }
 
-    public Tree apply() {
+    public PropertyTree apply() {
         return process(tree);
     }
 
-    private Tree process(final Tree root) {
-        final Tree result = new Tree();
+    private PropertyTree process(final PropertyTree root) {
+        final PropertyTree result = new PropertyTree();
         final Map<String, List<Object>> entriesFromList = new HashMap<>();
         root.entrySet().stream().forEach((entry) -> {
             Matcher matcher = pattern.matcher(entry.getKey());
@@ -46,7 +46,7 @@ class ArrayProcessor {
     }
 
     private Object getValue(final Object value) {
-        return value instanceof Tree ? process((Tree) value) : value;
+        return value instanceof PropertyTree ? process((PropertyTree) value) : value;
     }
 
     private void adjustArray(final int index, List<Object> elementList) {

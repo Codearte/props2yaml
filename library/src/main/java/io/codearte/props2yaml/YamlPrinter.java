@@ -9,7 +9,7 @@ class YamlPrinter {
 
     private final Map<String, Object> mainMap;
 
-    public YamlPrinter(Tree mainMap) {
+    public YamlPrinter(PropertyTree mainMap) {
         this.mainMap = mainMap;
     }
 

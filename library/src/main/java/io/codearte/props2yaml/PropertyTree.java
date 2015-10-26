@@ -3,12 +3,12 @@ package io.codearte.props2yaml;
 import java.util.List;
 import java.util.TreeMap;
 
-public class Tree extends TreeMap<String, Object> {
+public class PropertyTree extends TreeMap<String, Object> {
 
-    public Tree() {
+    public PropertyTree() {
     }
 
-    public Tree(String key, Object value) {
+    public PropertyTree(String key, Object value) {
         put(key, value);
     }
 
@@ -17,12 +17,12 @@ public class Tree extends TreeMap<String, Object> {
 
     }
 
-    private void appendBranch(Tree branchTree) {
+    private void appendBranch(PropertyTree branchTree) {
         branchTree.forEach((k, v) -> this.merge(k, v,
-                (root, branch) -> resolveDuplicates((Tree) root, (Tree) branch)));
+                (root, branch) -> resolveDuplicates((PropertyTree) root, (PropertyTree) branch)));
     }
 
-    private static Object resolveDuplicates(Tree root, Tree branch) {
+    private static Object resolveDuplicates(PropertyTree root, PropertyTree branch) {
         root.appendBranch(branch);
         return root;
     }

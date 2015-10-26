@@ -12,6 +12,14 @@ class ArrayConverterSpec extends Specification {
             yaml =~ '- true'
     }
 
+    def "Should convert to array when property is digit"() {
+        when:
+            String yaml = new Props2YAML('foo.0.bar=true').convert();
+        then:
+            yaml =~ 'foo:'
+            yaml =~ '-   bar: true'
+    }
+
     def "Should convert sample example with array"() {
         when:
             String yaml = new Props2YAML('foo[0].skip=true').convert();

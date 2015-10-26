@@ -1,7 +1,5 @@
 package io.codearte.props2yaml;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 class TreeBranchBuilder {
@@ -14,10 +12,10 @@ class TreeBranchBuilder {
         this.value = value;
     }
 
-    public Tree build() {
+    public PropertyTree build() {
         return key.stream()
-                .reduce(new Tree(),
-                        (a, b) -> new Tree(b, a.isEmpty() ? value : a),
+                .reduce(new PropertyTree(),
+                        (a, b) -> new PropertyTree(b, a.isEmpty() ? value : a),
                         (a, b) -> {
                             throw new IllegalStateException("Parallel processing is not supported");
                         }
