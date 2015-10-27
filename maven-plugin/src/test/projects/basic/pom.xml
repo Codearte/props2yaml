@@ -12,7 +12,7 @@
             <plugin>
                 <groupId>io.codearte.props2yaml</groupId>
                 <artifactId>props2yaml-maven-plugin</artifactId>
-                <version>0.4-SNAPSHOT</version>
+                <version>0.5-SNAPSHOT</version>
                 <executions>
                     <execution>
                         <id>convert</id>
