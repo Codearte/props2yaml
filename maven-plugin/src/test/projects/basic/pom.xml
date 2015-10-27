@@ -6,24 +6,5 @@
     <groupId>io.codearte.props2yaml</groupId>
     <artifactId>sample-project</artifactId>
     <version>0.1</version>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>io.codearte.props2yaml</groupId>
-                <artifactId>props2yaml-maven-plugin</artifactId>
-                <version>0.5-SNAPSHOT</version>
-                <executions>
-                    <execution>
-                        <id>convert</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>convert</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
+    
 </project>

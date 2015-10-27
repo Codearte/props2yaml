@@ -11,6 +11,9 @@ import org.junit.runner.RunWith;
 
 import java.io.File;
 
+import static java.lang.String.format;
+import static java.lang.System.getProperty;
+
 @RunWith(MavenJUnitTestRunner.class)
 @MavenVersions({"3.3.3"})
 public class IntegrationTest {
@@ -20,6 +23,7 @@ public class IntegrationTest {
 
     private final MavenRuntime maven;
 
+
     public IntegrationTest(MavenRuntimeBuilder builder) throws Exception {
         this.maven = builder.build();
     }
@@ -27,8 +31,9 @@ public class IntegrationTest {
     @Test
     public void testBasic() throws Exception {
         File basedir = resources.getBasedir("basic");
+        String goal = format("io.codearte.props2yaml:props2yaml-maven-plugin:%s:convert", getProperty("projectVersion"));
         maven.forProject(basedir)
-                .execute("validate", "-Dproperties=sample.properties")
+                .execute(goal, "-Dproperties=sample.properties")
                 .assertErrorFreeLog();
         TestResources.assertFilesPresent(basedir, "sample.yml");
     }
