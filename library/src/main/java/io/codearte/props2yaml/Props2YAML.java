@@ -46,13 +46,5 @@ public class Props2YAML {
         return new YamlPrinter(tree).invoke();
     }
 
-    private void fillProperties(String source) {
-        try {
-            properties.load(new StringReader(source));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }
 
