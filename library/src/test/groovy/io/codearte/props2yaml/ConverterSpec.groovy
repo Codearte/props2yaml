@@ -50,4 +50,15 @@ line2'''
             yaml =~ "a: b"
     }
 
+    def "Should convert nested elements"() {
+        given:
+            String props = 'a = x\n' +
+                    'a.b = y'
+        when:
+            String yaml = new Props2YAML(props).convert();
+        then:
+            yaml =~ "a: x"
+            yaml =~ "a.b: y"
+    }
+
 }

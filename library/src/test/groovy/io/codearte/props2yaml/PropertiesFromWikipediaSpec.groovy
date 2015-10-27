@@ -18,7 +18,7 @@ class PropertiesFromWikipediaSpec extends Specification {
             yaml =~ 'message: Welcome to Wikipedia!'
             yaml =~ 'key with spaces: This is the value that could be looked up with the key "key with spaces".'
             yaml =~ 'tab: "\\\\t"'
-            yaml !=~ 'exclamation'
+            yaml != ~'exclamation'
     }
 
     def "Should read wikipedia sample properties using file"() {
@@ -39,15 +39,4 @@ class PropertiesFromWikipediaSpec extends Specification {
             yaml
     }
 
-    def "Should read maciek sample properties"() {
-        given:
-            String props = new File('src/test/resources/maciek.properties').text
-        when:
-            String yaml = new Props2YAML(props).convert();
-        println yaml
-        then:
-            yaml =~ '    -   filteredReqFields\\[m\\]: acceptNews'
-            yaml =~ '        filteredReqHeaders\\[j\\]: header-req-to-remove-1'
-            yaml =~ '    config\\[z\\]:'
-    }
 }
