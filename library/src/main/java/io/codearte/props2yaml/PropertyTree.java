@@ -20,33 +20,51 @@ public class PropertyTree extends TreeMap<String, Object> {
 
     private void appendBranch(PropertyTree branchTree) {
         branchTree.forEach((key, value) -> {
-            Optional<Object> removedValue = repairMixedTypeEntries(key, value);
+            Optional<PropertyTree> removedBranch = removeMixedTypedBranch(key, value);
             merge(key, value, (root, branch) -> resolveDuplicates((PropertyTree) root, (PropertyTree) branch));
-            removedValue.ifPresent(object -> appendBranch(new PropertyTree(key, object)));
+            removedBranch.ifPresent(this::appendBranch);
         });
     }
 
-    private Optional<Object> repairMixedTypeEntries(String key, Object value) {
-        if (containsKey(key)) {
-            if (get(key) instanceof String) {
-                Object removed = get(key);
-                replaceEntryWithLongerKey(key, value);
-                return Optional.of(removed);
-            } else if (value instanceof String) {
-                replaceEntryWithLongerKey(key, get(key));
+    private Optional<PropertyTree> removeMixedTypedBranch(String key, Object value) {
+        PropertyTree removedBranch = null;
+        if (containsKey(key) ) {
+            if (get(key) instanceof String || value instanceof String) {
+                removedBranch = new PropertyTree(key + flatKey(get(key)), flatValue(get(key)));
+                remove(key);
             }
         }
-        return Optional.empty();
+        return Optional.ofNullable(removedBranch);
     }
 
-    private void replaceEntryWithLongerKey(String key, Object value) {
-        Map.Entry<String, Object> entry = ((TreeMap<String, Object>) value).entrySet().iterator().next();
-        remove(key);
-        put(key + "." + entry.getKey(), entry.getValue());
+
+    private String flatKey(Object tree) {
+        if (tree instanceof PropertyTree) {
+            Map.Entry<String, Object> next = getNext((PropertyTree) tree);
+            return "." + next.getKey() + flatKey(next.getValue());
+        } else {
+            return "";
+        }
+    }
+
+    private Object flatValue(Object tree) {
+        if (tree instanceof PropertyTree) {
+            return flatValue(getNext((PropertyTree) tree).getValue());
+        } else {
+            return tree;
+        }
+    }
+
+    private Map.Entry<String, Object> getNext(PropertyTree tree) {
+        return tree.entrySet().iterator().next();
     }
 
     private static Object resolveDuplicates(PropertyTree root, PropertyTree branch) {
         root.appendBranch(branch);
         return root;
+    }
+
+    public String toYAML() {
+        return new YamlPrinter(this).invoke();
     }
 }
