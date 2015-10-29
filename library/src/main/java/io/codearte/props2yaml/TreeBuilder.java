@@ -3,6 +3,7 @@ package io.codearte.props2yaml;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -22,7 +23,7 @@ class TreeBuilder {
 
     public PropertyTree build() {
         PropertyTree root = new PropertyTree();
-        properties.stringPropertyNames().stream()
+        properties.stringPropertyNames().stream().sorted(Comparator.reverseOrder())
                 .collect(toMap(
                         this::splitPropertyName,
                         propertyName -> asObject(properties.getProperty(propertyName))))

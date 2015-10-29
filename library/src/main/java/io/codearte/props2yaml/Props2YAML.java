@@ -43,7 +43,7 @@ public class Props2YAML {
     public String convert() {
         PropertyTree tree = new TreeBuilder(properties).build();
         tree = new ArrayProcessor(tree).apply();
-        return new YamlPrinter(tree).invoke();
+        return tree.toYAML();
     }
 
 }

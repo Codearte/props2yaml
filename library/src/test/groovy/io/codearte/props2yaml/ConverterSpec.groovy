@@ -50,7 +50,7 @@ line2'''
             yaml =~ "a: b"
     }
 
-    def "Should convert nested elements"() {
+    def "Should convert elements with two levels of nesting"() {
         given:
             String props = 'a = x\n' +
                     'a.b = y'
@@ -59,6 +59,19 @@ line2'''
         then:
             yaml =~ "a: x"
             yaml =~ "a.b: y"
+    }
+
+    def "Should convert elements with three levels of nesting"() {
+        given:
+            String props = 'a = x\n' +
+                    'a.b = y\n' +
+                    'a.b.c = z'
+        when:
+            String yaml = new Props2YAML(props).convert();
+        then:
+            yaml =~ "a: x"
+            yaml =~ "a.b: y"
+            yaml =~ "a.b.c: z"
     }
 
 }
