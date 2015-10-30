@@ -23,7 +23,7 @@ class TreeBuilder {
 
     public PropertyTree build() {
         PropertyTree root = new PropertyTree();
-        properties.stringPropertyNames().stream().sorted(Comparator.reverseOrder())
+        properties.stringPropertyNames().stream()
                 .collect(toMap(
                         this::splitPropertyName,
                         propertyName -> asObject(properties.getProperty(propertyName))))
