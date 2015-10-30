@@ -28,15 +28,16 @@ public class PropertyTree extends TreeMap<String, Object> {
 
     private Optional<PropertyTree> removeMixedTypedBranch(String key, Object value) {
         PropertyTree removedBranch = null;
-        if (containsKey(key)) {
-            if (get(key) instanceof String || value instanceof String) {
-                removedBranch = new PropertyTree(key + flatKey(get(key)), flatValue(get(key)));
-                remove(key);
-            }
+        if (containsKey(key) && isTerminationNode(key, value)) {
+            removedBranch = new PropertyTree(key + flatKey(get(key)), flatValue(get(key)));
+            remove(key);
         }
         return Optional.ofNullable(removedBranch);
     }
 
+    private boolean isTerminationNode(String key, Object value) {
+        return !(get(key) instanceof PropertyTree && value instanceof PropertyTree);
+    }
 
     private String flatKey(Object tree) {
         if (tree instanceof PropertyTree) {

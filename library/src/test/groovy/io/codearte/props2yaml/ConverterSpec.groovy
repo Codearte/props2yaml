@@ -74,4 +74,16 @@ line2'''
             yaml =~ "a.b.c: z"
     }
 
+    def "Should convert elements with three levels of nesting and primitive values different than String"() {
+        given:
+            String props = 'a = 1\n' +
+                    'a.b = true\n' +
+                    'a.b.c = false'
+        when:
+            String yaml = new Props2YAML(props).convert();
+        then:
+            yaml =~ "a: 1"
+            yaml =~ "a.b: true"
+            yaml =~ "a.b.c: false"
+    }
 }
