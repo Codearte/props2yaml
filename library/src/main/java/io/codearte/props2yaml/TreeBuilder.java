@@ -16,9 +16,15 @@ class TreeBuilder {
 
     private final Properties properties;
     private final static Pattern pattern = Pattern.compile("[0-9]+");
+    private final boolean useNumericKeysAsArrayIndexes;
+
+    public TreeBuilder(Properties properties, boolean useNumericKeysAsArrayIndexes) {
+        this.properties = properties;
+        this.useNumericKeysAsArrayIndexes = useNumericKeysAsArrayIndexes;
+    }
 
     public TreeBuilder(Properties properties) {
-        this.properties = properties;
+        this(properties,true);
     }
 
     public PropertyTree build() {
@@ -34,7 +40,7 @@ class TreeBuilder {
 
     private List<String> splitPropertyName(String property) {
         List<String> strings = Arrays.asList(property.split("\\."));
-        List<String> result = applyArrayNotation(strings);
+        List<String> result = useNumericKeysAsArrayIndexes ? applyArrayNotation(strings) : strings;
         Collections.reverse(result);
         return result;
     }

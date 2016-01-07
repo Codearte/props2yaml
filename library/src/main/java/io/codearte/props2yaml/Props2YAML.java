@@ -46,10 +46,13 @@ public class Props2YAML {
         return new Props2YAML(path.toFile());
     }
 
-    public String convert() {
-        PropertyTree tree = new TreeBuilder(properties).build();
+    public String convert(boolean useNumericKeysAsArrayIndexes) {
+        PropertyTree tree = new TreeBuilder(properties,useNumericKeysAsArrayIndexes).build();
         tree = new ArrayProcessor(tree).apply();
         return tree.toYAML();
+    }
+    public String convert() {
+        return convert(true);
     }
 
     private void reportError(IOException e) {
