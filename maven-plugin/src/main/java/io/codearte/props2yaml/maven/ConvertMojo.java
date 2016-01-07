@@ -22,6 +22,9 @@ public class ConvertMojo extends AbstractMojo {
     @Parameter(property = "properties", required = false)
     private String properties;
 
+    @Parameter(property = "useNumericKeysAsArrayIndexes", required = false, defaultValue = "true")
+    private boolean useNumericKeysAsArrayIndexes;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         if (properties == null || properties.isEmpty()) {
@@ -32,7 +35,7 @@ public class ConvertMojo extends AbstractMojo {
         try {
             getLog().info("Properties to convert: " + propertiesPath);
             String content = new String(Files.readAllBytes(propertiesPath));
-            String yaml = Props2YAML.fromContent(content).convert();
+            String yaml = Props2YAML.fromContent(content).convert(useNumericKeysAsArrayIndexes);
             Path destinationPath = propertiesPath.getParent().resolve(getFileName());
             getLog().info("Write YAML to: " + destinationPath);
             try (BufferedWriter writer = Files.newBufferedWriter(destinationPath)) {

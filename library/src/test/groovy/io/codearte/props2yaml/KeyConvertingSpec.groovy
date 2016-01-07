@@ -41,4 +41,18 @@ class KeyConvertingSpec extends Specification {
             yaml != ~'a: 1'
     }
 
+    def "Should read numeric subkeys"() {
+        given:
+            String props = '''some.1.key = somevalue
+                              some.1.key2 = somevalue2'''
+        when:
+            String yaml = new Props2YAML(props).convert(false);
+            System.out.println( yaml );
+        then:
+            yaml =~ 'some:'
+            yaml =~ '\'1\':'
+            yaml =~ 'key: somevalue'
+            yaml =~ 'key2: somevalue2'
+    }
+
 }
