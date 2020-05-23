@@ -16,9 +16,14 @@ public class Props2YAML {
 
     private final static Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-    private final Properties properties = new Properties();
+    private final Properties properties;
+
+    Props2YAML(Properties properties) {
+        this.properties = properties;
+    }
 
     Props2YAML(String source) {
+        this(new Properties());
         try {
             properties.load(new StringReader(source));
         } catch (IOException e) {
@@ -27,11 +32,19 @@ public class Props2YAML {
     }
 
     Props2YAML(File file) {
+        this(new Properties());
         try (InputStream input = new FileInputStream(file)) {
             properties.load(input);
         } catch (IOException e) {
             reportError(e);
         }
+    }
+
+    /**
+     * Exists side effect.
+     */
+    public static Props2YAML fromProperties(Properties properties) {
+        return new Props2YAML(properties);
     }
 
     public static Props2YAML fromContent(String content) {
